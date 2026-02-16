@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+    --color-space-black: #0b0d17;
+    --color-space-panel: #151922;
+    --color-brand: #38bdf8;
+    --color-brand-hover: #0ea5e9;
+    --color-main: #f8fafc;
+    --color-muted: #94a3b8;
+
+    --font-sans: 'Rajdhani', sans-serif;
+
+    --text-2xs: 10px;
+}
+
+html,
+body {
+    background-color: var(--color-space-black);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    overflow: hidden;
+    height: 100vh;
+}
