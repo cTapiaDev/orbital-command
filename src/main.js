@@ -13,9 +13,25 @@ import {
     faShuttleSpace,
     faChartPie,
     faUserAstronaut,
+    faCircleCheck,
+    faCircleXmark,
+    faMoneyBillWave,
+    faWeightHanging,
+    faRulerVertical,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faRocket, faBars, faShuttleSpace, faChartPie, faUserAstronaut)
+library.add(
+    faRocket,
+    faBars,
+    faShuttleSpace,
+    faChartPie,
+    faUserAstronaut,
+    faCircleCheck,
+    faCircleXmark,
+    faMoneyBillWave,
+    faWeightHanging,
+    faRulerVertical,
+)
 
 const app = createApp(App)
 
