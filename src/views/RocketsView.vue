@@ -11,7 +11,7 @@ onMounted(() => {
     setTimeout(() => {
         rockets.value = rocketsData
         isLoading.value = false
-    }, 5000)
+    }, 1500)
 })
 </script>
 

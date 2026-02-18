@@ -18,6 +18,10 @@ import {
     faMoneyBillWave,
     faWeightHanging,
     faRulerVertical,
+    faFire,
+    faDatabase,
+    faArrowRight,
+    faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -31,6 +35,10 @@ library.add(
     faMoneyBillWave,
     faWeightHanging,
     faRulerVertical,
+    faFire,
+    faDatabase,
+    faArrowRight,
+    faArrowLeft,
 )
 
 const app = createApp(App)

@@ -2,6 +2,7 @@
 import AppBadge from '../ui/AppBadge.vue'
 import StatItem from '../ui/StatItem.vue'
 import { formatCurrency, formatNumber } from '@/utils/formatters'
+import { RouterLink } from 'vue-router'
 
 defineProps({
     rocket: {
@@ -42,11 +43,12 @@ defineProps({
                 />
             </div>
 
-            <button
-                class="w-full py-3 rounded-xl bg-brand/10 text-brand font-bold text-sm cursor-pointer border border-brand/20 hover:bg-brand/60 hover:text-white transition-all uppercase tracking-widest"
+            <RouterLink
+                :to="{ name: 'rocket-detail', params: { id: rocket.id } }"
+                class="block w-full py-3 rounded-xl bg-brand/10 text-brand font-bold text-sm cursor-pointer border border-brand/20 hover:bg-brand/60 hover:text-white transition-all uppercase tracking-widest text-center"
             >
                 Ver Detalles Técnicos
-            </button>
+            </RouterLink>
         </div>
     </article>
 </template>

@@ -29,3 +29,17 @@
     - Importar la data de `monsters.js`
     - Usar `v-for` para pintarlos.
     - Implementar un `MonsterSkeleton`.
+
+---
+
+### Requerimientos Tercera Parte (18/02):
+
+1. <b>Composable:</b> Crear `src/composables/useMonsters.js`. Debe tener una función para encontrar los monstruos por su id.
+2. <b>Ruta Dinámica:</b> Configurar el router para recibir el props `:id`
+3. <b>Link:</b> Modificar `MonsterCard.vue` para que al hacer clic en el nombre o imagen, lleve a la ruta de detalle.
+4. <b>Vista de Detalle (`MosterDetail.vue`):</b>
+    - Debe recibir el `id` como prop.
+    - Mostrar el Nombre del Monstruo.
+    - Mostrar una "Carta de Rol" con sus stats (Fuerza, Destreza, etc.).
+    - Botón de "Volver al Bestiario".
+    - Si el monstruo es tipo "Dragón", el borde de la carga debe ser Rojo (o el color que lo represente). Si es "Bestia", Verde. Y si es 'No-muerto', Morado.
