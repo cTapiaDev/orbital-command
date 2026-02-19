@@ -3,6 +3,8 @@ import MainLayout from '@/layouts/MainLayout.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import RocketsView from '@/views/RocketsView.vue'
 import RocketDetailView from '@/views/RocketDetailView.vue'
+import RocketOverview from '@/views/rocket-tabs/RocketOverview.vue'
+import RocketTech from '@/views/rocket-tabs/RocketTech.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,9 +25,20 @@ const router = createRouter({
                 },
                 {
                     path: 'rockets/:id',
-                    name: 'rocket-detail',
                     component: RocketDetailView,
                     props: true,
+                    children: [
+                        {
+                            path: '',
+                            name: 'rocket-detail',
+                            component: RocketOverview,
+                        },
+                        {
+                            path: 'tech',
+                            name: 'rocket-tech',
+                            component: RocketTech,
+                        },
+                    ],
                 },
             ],
         },

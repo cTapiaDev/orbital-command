@@ -2,7 +2,6 @@
 import AppBadge from '../ui/AppBadge.vue'
 import StatItem from '../ui/StatItem.vue'
 import { formatCurrency, formatNumber } from '@/utils/formatters'
-import { RouterLink } from 'vue-router'
 
 defineProps({
     rocket: {

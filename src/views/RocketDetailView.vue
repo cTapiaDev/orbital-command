@@ -50,55 +50,45 @@ const rocket = computed(() => {
             </div>
         </header>
 
-        <div class="border-b border-white/10 flex gap-8">
-            <button
-                class="pb-4 text-brand border-b-2 border-brand font-bold uppercase tracking-widest text-sm cursor-pointer"
+        <nav class="border-b border-white/10 flex gap-8 text-muted">
+            <RouterLink
+                :to="{ name: 'rocket-detail', params: { id: rocket.id } }"
+                exact-active-class="text-brand border-brand"
+                class="pb-4 px-2 border-b-2 font-bold uppercase tracking-widest text-sm transition-colors cursor-pointer"
             >
+                <font-awesome-icon icon="rocket" class="mr-2" />
                 Visión General
-            </button>
-            <button
-                class="pb-4 text-muted hover:text-white font-bold uppercase tracking-widest text-sm transition-colors cursor-pointer"
+            </RouterLink>
+            <RouterLink
+                :to="{ name: 'rocket-tech', params: { id: rocket.id } }"
+                exact-active-class="text-brand border-brand"
+                class="pb-4 px-2 border-b-2 font-bold uppercase tracking-widest text-sm transition-colors cursor-pointer"
             >
+                <font-awesome-icon icon="gear" class="mr-2" />
                 Especificaciones
-            </button>
-            <button
+            </RouterLink>
+            <!-- <RouterLink
                 class="pb-4 text-muted hover:text-white font-bold uppercase tracking-widest text-sm transition-colors cursor-pointer"
             >
                 Historial
-            </button>
-        </div>
+            </RouterLink> -->
+        </nav>
 
-        <div class="py-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-space-panel p-8 rounded-2xl border border-white/5">
-                <h3 class="text-white font-bold mb-4 flex items-center gap-2">
-                    <font-awesome-icon icon="rocket" class="text-brand" />
-                    Resumen Técnico
-                </h3>
-                <ul class="space-y-4">
-                    <li class="flex justify-between border-b border-white/5 pb-2">
-                        <span class="text-muted">Altura</span>
-                        <span class="text-white font-mono">{{ rocket.height }}</span>
-                    </li>
-                    <li class="flex justify-between border-b border-white/5 pb-2">
-                        <span class="text-muted">Masa</span>
-                        <span class="text-white font-mono">{{ rocket.mass.toLocaleString() }}</span>
-                    </li>
-                    <li class="flex justify-between border-b border-white/5 pb-2">
-                        <span class="text-muted">Etapas</span>
-                        <span class="text-white font-mono">2</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bg-space-panel p-8 rounded-2xl border border-white/5">
-                <p class="text-muted italic">Futuro Gráfico con D3.js</p>
-            </div>
+        <div class="py-8 relative">
+            <RouterView v-slot="{ Component }">
+                <!-- <transition name="fade-slide" mode="out-in"> -->
+                <component :is="Component" :rocket="rocket" />
+                <!-- </transition> -->
+            </RouterView>
         </div>
     </div>
 
     <div v-else class="text-center py-20">
         <h2 class="text-2xl text-white font-bold mb-2">Cohete no encontrado</h2>
-        <p class="text-muted">El CODE {{ id }} no corresponde a ningún cohete existente.</p>
+        <p class="text-muted">
+            El CODE <span class="text-brand">{{ id }}</span> no corresponde a ningún cohete
+            existente.
+        </p>
         <button @click="router.back()" class="mt-6 text-brand hover:underline cursor-pointer">
             Volver al catálogo
         </button>
@@ -119,5 +109,20 @@ const rocket = computed(() => {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+    transition: all 0.3s ease;
+}
+
+.fade-slide-enter-from {
+    opacity: 0;
+    transform: translateX(-15px);
+}
+
+.fade-slide-leave-active {
+    opacity: 0;
+    transform: translateX(15px);
 }
 </style>
