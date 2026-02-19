@@ -43,3 +43,18 @@
     - Mostrar una "Carta de Rol" con sus stats (Fuerza, Destreza, etc.).
     - Botón de "Volver al Bestiario".
     - Si el monstruo es tipo "Dragón", el borde de la carga debe ser Rojo (o el color que lo represente). Si es "Bestia", Verde. Y si es 'No-muerto', Morado.
+  
+---
+
+### Requerimientos Cuarta Parte (19/02):
+
+1. <b>Modificar el Router:</b> Agregar rutas `children` a `bestiary/:id`.
+    - '' (Ruta por defecto): Componente `MonsterStats.vue`
+    - 'lore': Componente `MonsterLore.vue`
+2. <b>Vista Padre (`MonsterDetail.vue`):</b>
+    - Crear los `<RouterLink>` para navegar entre "Atributos" e "Historia"
+    - Implementar el `<RouterLink :monster="monster" />` para inyectar los datos.
+3. <b>Vistas Hijas:</b>
+    - En `MonsterStats.vue`: Diseñar un grid mostrando Fuerza, Destreza, Inteligencia, etc.
+    - En `MonsterLore.vue`: Mostrar la descripción larga del monstruo con un estilo tipográfico de pergamino antiguo.
+
