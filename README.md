@@ -43,7 +43,7 @@
     - Mostrar una "Carta de Rol" con sus stats (Fuerza, Destreza, etc.).
     - Botón de "Volver al Bestiario".
     - Si el monstruo es tipo "Dragón", el borde de la carga debe ser Rojo (o el color que lo represente). Si es "Bestia", Verde. Y si es 'No-muerto', Morado.
-  
+
 ---
 
 ### Requerimientos Cuarta Parte (19/02):
@@ -58,3 +58,14 @@
     - En `MonsterStats.vue`: Diseñar un grid mostrando Fuerza, Destreza, Inteligencia, etc.
     - En `MonsterLore.vue`: Mostrar la descripción larga del monstruo con un estilo tipográfico de pergamino antiguo.
 
+---
+
+### Requerimientos Quinta Parte (23/02)
+
+1. <b>Mock Data:</b> Asegúrense de que su archivo `monster.js` tenga atributos como `type` (ej: 'Dragon', 'Undead', 'Beast', etc.).
+2. <b>Composable (`useMonsters.js`):</b> Crear las variables reactivas `searchQuery` y `selectedType`.
+3. <b>Computed Property:</b> Crear `filteredMonsters` que evalúe si el monstruo coincide con el texto escrito Y con el tipo seleccionado en un `<select>`.
+4. <b>UI:</b>
+    - Crear un componente `MonsterSearch.vue` e implementar un Debounce manual de 400ms.
+    - Crear un componente `MonsterFilter.vue` (Select) usando `defineModel()` para enlazar los tipos de monstruo.
+5. <b>V-if:</b> Mostrar un mensaje de "El conjuro de búsqueda falló: No hay monstruos que coincidan" si el array filtrado queda en 0.

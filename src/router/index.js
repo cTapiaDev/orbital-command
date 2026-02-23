@@ -5,6 +5,7 @@ import RocketsView from '@/views/RocketsView.vue'
 import RocketDetailView from '@/views/RocketDetailView.vue'
 import RocketOverview from '@/views/rocket-tabs/RocketOverview.vue'
 import RocketTech from '@/views/rocket-tabs/RocketTech.vue'
+import LaunchesView from '@/views/LaunchesView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,11 @@ const router = createRouter({
                             component: RocketTech,
                         },
                     ],
+                },
+                {
+                    path: 'launches',
+                    name: 'launches',
+                    component: LaunchesView,
                 },
             ],
         },

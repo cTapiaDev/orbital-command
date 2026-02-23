@@ -23,6 +23,10 @@ import {
     faArrowRight,
     faArrowLeft,
     faGear,
+    faMagnifyingGlass,
+    faFilter,
+    faCaretDown,
+    faCalendarDay,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -41,6 +45,10 @@ library.add(
     faArrowRight,
     faArrowLeft,
     faGear,
+    faMagnifyingGlass,
+    faFilter,
+    faCaretDown,
+    faCalendarDay,
 )
 
 const app = createApp(App)

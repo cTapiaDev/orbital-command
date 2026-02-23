@@ -1,0 +1,42 @@
+export const launches = [
+    {
+        id: '1',
+        name: 'FalconSat',
+        date_utc: '2006-03-24T22:30:00.000Z',
+        success: false,
+        details: 'Fallo del motor en T+33 segundos. Pérdida del vehículo y la carga útil.',
+        rocket_id: 1,
+    },
+    {
+        id: '2',
+        name: 'COTS 1',
+        date_utc: '2010-12-08T15:43:00.000Z',
+        success: true,
+        details: 'Primera misión exitosa de demostración de la cápsula Dragon.',
+        rocket_id: 1,
+    },
+    {
+        id: '3',
+        name: 'CRS-1',
+        date_utc: '2012-10-08T00:35:00.000Z',
+        success: true,
+        details: 'Primera misión oficial de reabastecimiento a la Estación Espacial Internacional.',
+        rocket_id: 1,
+    },
+    {
+        id: '4',
+        name: 'Amos-6',
+        date_utc: '2016-09-01T13:07:00.000Z',
+        success: false,
+        details: 'Anomalía en la plataforma de lanzamiento durante la prueba de fuego estático.',
+        rocket_id: 1,
+    },
+    {
+        id: '5',
+        name: 'Falcon Heavy Test Flight',
+        date_utc: '2018-02-06T20:45:00.000Z',
+        success: true,
+        details: 'Vuelo inaugural del Falcon Heavy. Llevó un Tesla Roadster al espacio.',
+        rocket_id: 2,
+    },
+]
