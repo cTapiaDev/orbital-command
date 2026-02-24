@@ -69,3 +69,14 @@
     - Crear un componente `MonsterSearch.vue` e implementar un Debounce manual de 400ms.
     - Crear un componente `MonsterFilter.vue` (Select) usando `defineModel()` para enlazar los tipos de monstruo.
 5. <b>V-if:</b> Mostrar un mensaje de "El conjuro de búsqueda falló: No hay monstruos que coincidan" si el array filtrado queda en 0.
+
+---
+
+### Requerimientos Sexta Parte (24/02)
+
+1. Construir `BaseModal.vue` utilizando `<Teleport to="body">`, `<Transition>` y Slots nombrados.
+2. Crear `GrimoireModal.vue` que use el `BaseModal`.
+    - <b>Slot Header:</b> Debe mostrar el Nombre del Monstruo con una tipografía gótica o elegante.
+    - <b>Slot Body:</b> Debe mostrar una imagen del monstruo y un texto descriptivo largo.
+3. En su vista de lista (`BestiaryView.vue`), cada `MonsterCard` debe tener un botón con un cono de un libro (Recomendación: `faBook`).
+4. <b>Flujo:</b> Al hacer clic en el libro, la tarjeta emite el evento, la vista principal captura el objeto del monstruo, se lo pasa al `GrimoireModal` y cambia la variable reactiva `isModalOpen` a `true`.

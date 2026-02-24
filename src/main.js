@@ -27,6 +27,10 @@ import {
     faFilter,
     faCaretDown,
     faCalendarDay,
+    faJedi,
+    faXmark,
+    faFileLines,
+    faCirclePlay,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -49,6 +53,10 @@ library.add(
     faFilter,
     faCaretDown,
     faCalendarDay,
+    faJedi,
+    faXmark,
+    faFileLines,
+    faCirclePlay,
 )
 
 const app = createApp(App)

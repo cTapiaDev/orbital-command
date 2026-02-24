@@ -1,14 +1,24 @@
 <script setup>
+import { ref } from 'vue'
 import { useLaunches } from '@/composables/useLaunches'
 import SearchBar from '@/components/ui/SearchBar.vue'
 import FilterSelect from '@/components/ui/FilterSelect.vue'
 import LaunchCard from '@/components/launches/LaunchCard.vue'
+import LaunchDetailModal from '@/components/launches/LaunchDetailModal.vue'
 
 const { filterStatus, filteredLaunches, updateSearchQuery, formatDate } = useLaunches()
+
+const isModalOpen = ref(false)
+const selectedLaunch = ref(null)
+
+const openLaunchDetails = (launchData) => {
+    selectedLaunch.value = launchData
+    isModalOpen.value = true
+}
 </script>
 
 <template>
-    <div>
+    <div class="relative">
         <header class="mb-8">
             <h2 class="text-3xl font-bold text-white mb-2">
                 Registro de <span class="text-brand">Misiones</span>
@@ -43,7 +53,14 @@ const { filterStatus, filteredLaunches, updateSearchQuery, formatDate } = useLau
                 :key="launch.id"
                 :launch="launch"
                 :formattedDate="formatDate(launch.date_utc)"
+                @view-details="openLaunchDetails"
             />
         </div>
+
+        <LaunchDetailModal
+            :is-open="isModalOpen"
+            :launch="selectedLaunch"
+            @close="isModalOpen = false"
+        />
     </div>
 </template>

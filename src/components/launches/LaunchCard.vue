@@ -5,6 +5,8 @@ defineProps({
     launch: { type: Object, required: true },
     formattedDate: { type: String, required: true },
 })
+
+const emit = defineEmits(['view-details'])
 </script>
 
 <template>
@@ -25,8 +27,15 @@ defineProps({
             </div>
             <AppBadge :active="launch.success" />
         </div>
-        <p class="text-muted text-sm leading-relaxed">
+        <p class="text-muted text-sm leading-relaxed mb-4">
             {{ launch.details || 'Sin detalles disponibles para esta misión' }}
         </p>
+
+        <button
+            @click="emit('view-details', launch)"
+            class="w-full py-3 rounded-xl bg-white/5 text-white text-sm font-bold border border-white/5 hover:bg-brand/70 hover:border-brand transition-all uppercase tracking-widest cursor-pointer mt-auto"
+        >
+            Abrir Reporte
+        </button>
     </article>
 </template>

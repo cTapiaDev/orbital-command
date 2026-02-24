@@ -42,6 +42,18 @@ import { RouterView, RouterLink } from 'vue-router'
                     />
                     Flota
                 </RouterLink>
+
+                <RouterLink
+                    to="/launches"
+                    class="flex items-center px-4 py-3 text-sm font-medium text-muted hover:text-white hover:bg-white/5 transition-all rounded-lg group"
+                    active-class="bg-brand/10 text-brand border-r-4 border-brand"
+                >
+                    <font-awesome-icon
+                        icon="jedi"
+                        class="mr-3 w-5 group-hover:text-brand transition-colors"
+                    />
+                    Misiones
+                </RouterLink>
             </nav>
 
             <div class="p-6 border-t border-white/5 bg-black/20">
