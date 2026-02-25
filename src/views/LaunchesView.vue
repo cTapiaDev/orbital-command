@@ -34,10 +34,13 @@ const openLaunchDetails = (launchData) => {
             <FilterSelect v-model="filterStatus" />
         </div>
 
-        <div class="space-y-4">
-            <p class="text-sm text-muted font-bold tracking-widest uppercase mb-4">
-                Mostrando {{ filteredLaunches.length }} resultados
-            </p>
+        <TransitionGroup tag="div" name="list" class="grid grid-cols-2 gap-6 relative">
+            <!-- <div class="space-y-4"> -->
+            <div key="counter" class="lg:col-span-2">
+                <p class="text-sm text-muted font-bold tracking-widest uppercase mb-4">
+                    Mostrando {{ filteredLaunches.length }} resultados
+                </p>
+            </div>
 
             <div
                 v-if="filteredLaunches.length === 0"
@@ -55,7 +58,8 @@ const openLaunchDetails = (launchData) => {
                 :formattedDate="formatDate(launch.date_utc)"
                 @view-details="openLaunchDetails"
             />
-        </div>
+            <!-- </div> -->
+        </TransitionGroup>
 
         <LaunchDetailModal
             :is-open="isModalOpen"
@@ -64,3 +68,17 @@ const openLaunchDetails = (launchData) => {
         />
     </div>
 </template>
+
+<style scoped>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+}
+</style>

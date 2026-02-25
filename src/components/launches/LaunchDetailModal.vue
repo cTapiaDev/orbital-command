@@ -1,6 +1,9 @@
 <script setup>
 import BaseModal from '../ui/BaseModal.vue'
 import AppBadge from '../ui/AppBadge.vue'
+import { useToast } from '@/composables/useToast'
+
+const { addToast } = useToast()
 
 defineProps({
     isOpen: { type: Boolean, required: true },
@@ -8,6 +11,10 @@ defineProps({
 })
 
 defineEmits(['close'])
+
+const handleDownload = () => {
+    addToast('Descargando reporte...', 'info')
+}
 </script>
 
 <template>
@@ -70,6 +77,7 @@ defineEmits(['close'])
                 Cerrar Reporte
             </button>
             <button
+                @click="handleDownload"
                 class="px-6 py-2 rounded-xl bg-brand text-white font-bold hover:bg-brand-hover transition-colors shadow-2xl cursor-pointer"
             >
                 Descargar Log (PDF)

@@ -1,5 +1,15 @@
 <script setup>
+import { provide, ref } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
+
+const currentUser = ref({
+    name: 'Cmdr. Shepard',
+    rank: 'Nivel 5',
+    clearance: ['overview', 'tech', 'launches'],
+    avatar: 'user-astronaut',
+})
+
+provide('userContext', currentUser)
 </script>
 
 <template>
@@ -22,7 +32,7 @@ import { RouterView, RouterLink } from 'vue-router'
                 <RouterLink
                     to="/"
                     class="flex items-center px-4 py-3 text-sm font-medium text-muted hover:text-white hover:bg-white/5 transition-all rounded-lg group"
-                    active-class="bg-brand/10 text-brand border-r-4 border-brand"
+                    exact-active-class="bg-brand/10 text-brand border-r-4 border-brand"
                 >
                     <font-awesome-icon
                         icon="chart-pie"

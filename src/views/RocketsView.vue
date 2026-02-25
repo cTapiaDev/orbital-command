@@ -34,7 +34,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div v-observe class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <template v-if="isLoading">
                 <RocketSkeleton v-for="n in 3" :key="n" />
             </template>

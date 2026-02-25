@@ -1,13 +1,28 @@
 <script setup>
+import { inject } from 'vue'
 import { useRockets } from '@/composables/useRockets'
 import DashboardWidget from '@/components/ui/DashboardWidget.vue'
 import { formatCurrency } from '@/utils/formatters'
 
 const { rockets, activeCount, totalCost } = useRockets()
+
+const user = inject('userContext')
 </script>
 
 <template>
     <div>
+        <div
+            class="mb-8 p-6 bg-brand/10 border border-brand/20 rounded-2xl flex items-center gap-4"
+        >
+            <font-awesome-icon :icon="user.avatar" class="text-3xl text-brand" />
+            <div>
+                <h2 class="text-xl font-bold text-white">Bienvenido a bordo, {{ user.name }}</h2>
+                <p class="text-brand text-sm tracking-widest uppercase">
+                    Autorización: {{ user.rank }}
+                </p>
+            </div>
+        </div>
+
         <h2 class="text-3xl font-light text-white mb-2">
             Misión <strong class="font-bold text-brand">Control</strong>
         </h2>

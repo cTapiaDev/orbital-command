@@ -1,11 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout.vue'
-import DashboardView from '@/views/DashboardView.vue'
-import RocketsView from '@/views/RocketsView.vue'
-import RocketDetailView from '@/views/RocketDetailView.vue'
-import RocketOverview from '@/views/rocket-tabs/RocketOverview.vue'
-import RocketTech from '@/views/rocket-tabs/RocketTech.vue'
-import LaunchesView from '@/views/LaunchesView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,36 +11,41 @@ const router = createRouter({
                 {
                     path: '',
                     name: 'dashboard',
-                    component: DashboardView,
+                    component: () => import('@/views/DashboardView.vue'),
                 },
                 {
                     path: 'rockets', // Representa la ruta (/rockets)
                     name: 'rockets',
-                    component: RocketsView,
+                    component: () => import('@/views/RocketsView.vue'),
                 },
                 {
                     path: 'rockets/:id',
-                    component: RocketDetailView,
+                    component: () => import('@/views/RocketDetailView.vue'),
                     props: true,
                     children: [
                         {
                             path: '',
                             name: 'rocket-detail',
-                            component: RocketOverview,
+                            component: () => import('@/views/rocket-tabs/RocketOverview.vue'),
                         },
                         {
                             path: 'tech',
                             name: 'rocket-tech',
-                            component: RocketTech,
+                            component: () => import('@/views/rocket-tabs/RocketTech.vue'),
                         },
                     ],
                 },
                 {
                     path: 'launches',
                     name: 'launches',
-                    component: LaunchesView,
+                    component: () => import('@/views/LaunchesView.vue'),
                 },
             ],
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'not-found',
+            component: () => import('@/views/NotFoundView.vue'),
         },
     ],
 })

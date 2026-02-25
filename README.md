@@ -80,3 +80,13 @@
     - <b>Slot Body:</b> Debe mostrar una imagen del monstruo y un texto descriptivo largo.
 3. En su vista de lista (`BestiaryView.vue`), cada `MonsterCard` debe tener un botón con un cono de un libro (Recomendación: `faBook`).
 4. <b>Flujo:</b> Al hacer clic en el libro, la tarjeta emite el evento, la vista principal captura el objeto del monstruo, se lo pasa al `GrimoireModal` y cambia la variable reactiva `isModalOpen` a `true`.
+
+---
+
+### Requerimientos Séptima Parte (25/02)
+
+1. <b>Directiva:</b> Crear una directiva `v-glow` que aplique un efecto de "sombra brillante" (box-shadow) a las tarjetas (`MonsterCard`) cuando el mouse pase sobre ellas (eventos `mouseenter` y `mouseleave`) usando JS nativo dentro del `mounted`.
+2. <b>Provide/Inject:</b> En su `BookLayout.vue`, proveer un objeto `campaignContext` (con el nombre de la campaña y el nivel del grupo). Inyéctandolo en la vista del `Dashboard` y mostrarlo.
+3. <b>El mensajero (Toast):</b> Crear un `useToast.js`. Implementarlo para que al presionar el botón de "Añadir a encuentros" en el Modal del Monstruo, salga una alerta que diga: <i>"¡[Nombre del Monstruo] añadido al rastreador de combate!"</i>.
+4. <b>404 Not Found:</b> Crear un componente `LostInTheDungeon.vue` con un diseño acorde al tema y configurarlo como ruta de cacheo alternativa.
+5. <b>Optimización:</b> Aplicar Lazy loading en todos los imports de vistas en su `router/index.js`
