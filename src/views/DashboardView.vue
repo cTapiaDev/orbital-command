@@ -1,12 +1,22 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, onMounted, onUnmounted } from 'vue'
 import { useRockets } from '@/composables/useRockets'
+import { useTerminal } from '@/composables/useTerminal'
 import DashboardWidget from '@/components/ui/DashboardWidget.vue'
+import MissionTerminal from '@/components/ui/MissionTerminal.vue'
 import { formatCurrency } from '@/utils/formatters'
 
 const { rockets, activeCount, totalCost } = useRockets()
-
+const { addLog } = useTerminal()
 const user = inject('userContext')
+
+onMounted(() => {
+    addLog(`Usuario ${user.value.name} ha accedido al Panel Principal.`, 'info')
+})
+
+onUnmounted(() => {
+    addLog('Destrucción del Panel Principal.', 'info')
+})
 </script>
 
 <template>
@@ -42,6 +52,10 @@ const user = inject('userContext')
                 icon="database"
                 color="text-yellow-400"
             />
+        </div>
+
+        <div class="mb-8">
+            <MissionTerminal />
         </div>
 
         <div class="bg-space-panel border border-white/5 rounded-2xl p-8 text-center">

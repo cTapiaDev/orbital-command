@@ -35,6 +35,7 @@ import {
     faCirclePlay,
     faBell,
     faSatelliteDish,
+    faSatellite,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -63,6 +64,7 @@ library.add(
     faCirclePlay,
     faBell,
     faSatelliteDish,
+    faSatellite,
 )
 
 const app = createApp(App)

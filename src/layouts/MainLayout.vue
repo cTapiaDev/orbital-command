@@ -1,6 +1,10 @@
 <script setup>
 import { provide, ref } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
+import SystemClock from '@/components/ui/SystemClock.vue'
+
+const appVersion = ref(import.meta.env.VITE_SYSTEM_VERSION)
+const appTitle = ref(import.meta.env.VITE_APP_TITLE)
 
 const currentUser = ref({
     name: 'Cmdr. Shepard',
@@ -85,6 +89,16 @@ provide('userContext', currentUser)
             <div
                 class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--color-brand)_0%,_transparent_20%)] opacity-15 pointer-events-none"
             ></div>
+
+            <header
+                class="h-20 border-b border-white/5 flex items-center justify-between px-10 relative z-10"
+            >
+                <div>
+                    <p class="text-2xs text-muted uppercase tracking-widest">{{ appTitle }}</p>
+                    <p class="text-2xs text-brand font-mono">{{ appVersion }}</p>
+                </div>
+                <SystemClock />
+            </header>
 
             <div class="flex-1 overflow-y-auto p-10">
                 <RouterView />
