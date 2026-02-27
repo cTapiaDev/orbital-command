@@ -42,19 +42,19 @@ const calculatePayloadRatio = (mass) => `${(mass / 1000).toFixed(1)} T`
             <StatItem
                 icon="money-bill-wave"
                 label="Costo por Lanzamiento"
-                :value="formatCurrency(rocket.cost)"
+                :value="formatCurrency(rocket.cost_per_launch)"
             />
 
             <StatItem
                 icon="weight-hanging"
                 label="Masa Estructural"
-                :value="calculatePayloadRatio(rocket.mass)"
+                :value="calculatePayloadRatio(rocket.mass.kg)"
             />
 
             <StatItem
                 icon="ruler-vertical"
                 label="Altura Total"
-                :value="`${rocket.height} Metros`"
+                :value="`${rocket.height.meters} Metros`"
             />
         </div>
 

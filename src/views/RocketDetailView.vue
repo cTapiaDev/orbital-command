@@ -1,7 +1,8 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useRockets } from '@/composables/useRockets'
+// import { useRockets } from '@/composables/useRockets'
+import { spacexService } from '@/services/spacexServices'
 import AppBadge from '@/components/ui/AppBadge.vue'
 
 const props = defineProps({
@@ -9,14 +10,44 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const { getRocketById } = useRockets()
+// const { getRocketById } = useRockets()
+const rocket = ref(null)
+const isLoading = ref(true)
+const isError = ref(false)
 
-const rocket = computed(() => {
-    return getRocketById(props.id)
+const fetchRocketDetail = async () => {
+    isLoading.value = true
+    isError.value = false
+
+    try {
+        const data = await spacexService.getRocketById(props.id)
+        rocket.value = {
+            ...data,
+            image: data.flickr_images[0],
+        }
+    } catch (error) {
+        console.error('Error cargando el detalle:', error)
+        isError.value = true
+    } finally {
+        isLoading.value = false
+    }
+}
+
+onMounted(() => {
+    fetchRocketDetail()
 })
+
+// const rocket = computed(() => {
+//     return getRocketById(props.id)
+// })
 </script>
 
 <template>
+    <div v-if="isLoading" class="flex flex-col items-center justify-center py-20 text-brand">
+        <font-awesome-icon icon="satellite" class="text-6xl animate-pulse mb-4" />
+        <p class="font-mono tracking-widest uppercase text-sm">Descargando telemetría...</p>
+    </div>
+
     <div v-if="rocket" class="animate-fade-in-up">
         <button
             @click="router.back()"
@@ -41,7 +72,7 @@ const rocket = computed(() => {
                 <div class="flex items-center gap-4 mb-2">
                     <AppBadge :active="rocket.active" />
                     <span class="text-brand font-mono text-sm tracking-widest uppercase"
-                        >CODE: {{ rocket.id }}</span
+                        >CODE: {{ String(rocket.id).slice(-6) }}</span
                     >
                 </div>
 
@@ -89,7 +120,10 @@ const rocket = computed(() => {
             El CODE <span class="text-brand">{{ id }}</span> no corresponde a ningún cohete
             existente.
         </p>
-        <button @click="router.back()" class="mt-6 text-brand hover:underline cursor-pointer">
+        <button
+            @click="router.push('/rockets')"
+            class="mt-6 text-brand hover:underline cursor-pointer"
+        >
             Volver al catálogo
         </button>
     </div>

@@ -23,4 +23,14 @@ export const spacexService = {
             throw error
         }
     },
+
+    getCompanyInfo: async () => {
+        try {
+            const response = await api.get('/company')
+            return response.data
+        } catch (error) {
+            addLog(`Error en getCompanyInfo: ${error}`, 'info')
+            throw error
+        }
+    },
 }

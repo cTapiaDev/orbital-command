@@ -90,3 +90,20 @@
 3. <b>El mensajero (Toast):</b> Crear un `useToast.js`. Implementarlo para que al presionar el botón de "Añadir a encuentros" en el Modal del Monstruo, salga una alerta que diga: <i>"¡[Nombre del Monstruo] añadido al rastreador de combate!"</i>.
 4. <b>404 Not Found:</b> Crear un componente `LostInTheDungeon.vue` con un diseño acorde al tema y configurarlo como ruta de cacheo alternativa.
 5. <b>Optimización:</b> Aplicar Lazy loading en todos los imports de vistas en su `router/index.js`
+
+---
+
+### Requerimientos Octava Parte (27/02)
+
+1. <b>Ciclo de Vida:</b> Crear `CampaignClock.vue`. Este componente debe mostrar un "Día de Campaña" que aumenta en 1 cada 5 segundos usando `setInterval`. Si el usuario cambia a la vista del Bestiario, el intervalo DEBE ser destruido (`clearInterval`) dentro de `onUnmounted`.
+2. <b>Refs y `nextTick`:</b> Crear `CombatLog.vue`. Un componente que simule tiradas de dados. Cada vez que hagan clic en un botón "Tirar d20", se agrega un string al array (ej: `"Tirada de ataque: 15"`).
+3. <b>Autoscroll:</b> Utilizar `ref="logContainer"` en el HTML. Usar un `watch` sobre el array de tiradas, y llamar a `await nextTick()` para que el contenedor baje automáticamente al último mensaje tirado.
+4. <b>Eliminar el Mock Data e integrarse con la Api de Open5e:</b>
+    - Configurar en su `.env` la URL `VITE_DND_API_URL="https://api.open5e.com/v1"`.
+    - Crear `src/services/api.js` y `src/services/mosterService.js` con interceptor y Toasts.
+    - Dentro de `mosterService.js`, crear una función asíncrona `getMonsters()` que haga un `api.get('/monsters/?limit=10')`
+    - En su vista `BestiaryView.vue`, aplicar el patrón `try/catch/finally` con variables `isLoading` e `isError`. Renderizar los monstruos que devuelva la API (el array real viene dentro de `response.data.results`)
+5. <b>Construir dos endpoints diferentes con `Promise.all`:</b>
+    - En `monsterService.js`, agreguen una función `getSpells()` que apunte a `api.get('/spells/?limit=1')` (solo para traer el `count` total de hechizos) Asegúrense de que `getMonsters()` también esté funcional.
+    - En su `DashboardView`, creen la función asíncrona orquestadora que dispare ambas peticiones a la vez usando `Promise.all`
+    - Creen un `StatsSkeleton.vue` e impleméntenlo. Cuando la promesa se resuelva, rendericen los Widgets mostrando el total exacto de Monstruos y el total de Hechizos que existen en la base de datos Open5e.
