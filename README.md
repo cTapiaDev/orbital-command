@@ -2,7 +2,7 @@
 
 <i><b>Objetivo:</b> Construir un gestor de campañas de Rol/Fatansía</i>
 
----
+--- (Módulo 6)
 
 ### Requerimientos Primera Parte (16/02):
 
@@ -91,7 +91,7 @@
 4. <b>404 Not Found:</b> Crear un componente `LostInTheDungeon.vue` con un diseño acorde al tema y configurarlo como ruta de cacheo alternativa.
 5. <b>Optimización:</b> Aplicar Lazy loading en todos los imports de vistas en su `router/index.js`
 
----
+--- (Módulo 7)
 
 ### Requerimientos Octava Parte (27/02)
 
@@ -104,6 +104,6 @@
     - Dentro de `mosterService.js`, crear una función asíncrona `getMonsters()` que haga un `api.get('/monsters/?limit=10')`
     - En su vista `BestiaryView.vue`, aplicar el patrón `try/catch/finally` con variables `isLoading` e `isError`. Renderizar los monstruos que devuelva la API (el array real viene dentro de `response.data.results`)
 5. <b>Construir dos endpoints diferentes con `Promise.all`:</b>
-    - En `monsterService.js`, agreguen una función `getSpells()` que apunte a `api.get('/spells/?limit=1')` (solo para traer el `count` total de hechizos) Asegúrense de que `getMonsters()` también esté funcional.
+    - En `monsterService.js`, agreguen una función `getSpells()` que apunte a `api.get('/spells/?limit=10')` (solo para traer el `count` total de hechizos) Asegúrense de que `getMonsters()` también esté funcional.
     - En su `DashboardView`, creen la función asíncrona orquestadora que dispare ambas peticiones a la vez usando `Promise.all`
     - Creen un `StatsSkeleton.vue` e impleméntenlo. Cuando la promesa se resuelva, rendericen los Widgets mostrando el total exacto de Monstruos y el total de Hechizos que existen en la base de datos Open5e.
