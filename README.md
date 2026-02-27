@@ -2,7 +2,9 @@
 
 <i><b>Objetivo:</b> Construir un gestor de campañas de Rol/Fatansía</i>
 
---- (Módulo 6)
+---
+
+## (Módulo 6)
 
 ### Requerimientos Primera Parte (16/02):
 
@@ -91,7 +93,9 @@
 4. <b>404 Not Found:</b> Crear un componente `LostInTheDungeon.vue` con un diseño acorde al tema y configurarlo como ruta de cacheo alternativa.
 5. <b>Optimización:</b> Aplicar Lazy loading en todos los imports de vistas en su `router/index.js`
 
---- (Módulo 7)
+---
+
+## (Módulo 7)
 
 ### Requerimientos Octava Parte (27/02)
 
