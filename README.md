@@ -111,3 +111,12 @@
     - En `monsterService.js`, agreguen una función `getSpells()` que apunte a `api.get('/spells/?limit=10')` (solo para traer el `count` total de hechizos) Asegúrense de que `getMonsters()` también esté funcional.
     - En su `DashboardView`, creen la función asíncrona orquestadora que dispare ambas peticiones a la vez usando `Promise.all`
     - Creen un `StatsSkeleton.vue` e impleméntenlo. Cuando la promesa se resuelva, rendericen los Widgets mostrando el total exacto de Monstruos y el total de Hechizos que existen en la base de datos Open5e.
+
+---
+
+### Requerimientos Novena Parte (02/03)
+
+0. <b>Contexto:</b> API para busqueda de monstruos (`/monsters/?search=dragon&page=2`)
+1. <b>Servicio:</b> Modificar `monsterService.js` para aceptar página y búsqueda: `api.get('/monsters', { params: { search: query, page } })`
+2. <b>Lógica:</b> Adaptar su `useMonsters.js`. La API devuelve `{ count, next, previous, results }`. No tiene `totalPages`, por lo que tendrán que calcularlo: `Math.ceil(count / 50)` (ej: Devuelve 50 por página).
+3. <b>UI:</b> Agregar los botones "Anterior" y "Siguiente", deshabilitándolos si `next` o `previous` son nulos

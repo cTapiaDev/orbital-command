@@ -27,7 +27,7 @@ const emit = defineEmits(['view-details'])
             </div>
             <AppBadge :active="launch.success" />
         </div>
-        <p class="text-muted text-sm leading-relaxed mb-4">
+        <p class="text-muted text-sm leading-relaxed mb-4 line-clamp-2">
             {{ launch.details || 'Sin detalles disponibles para esta misión' }}
         </p>
 
