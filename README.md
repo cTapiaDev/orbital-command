@@ -120,3 +120,13 @@
 1. <b>Servicio:</b> Modificar `monsterService.js` para aceptar página y búsqueda: `api.get('/monsters', { params: { search: query, page } })`
 2. <b>Lógica:</b> Adaptar su `useMonsters.js`. La API devuelve `{ count, next, previous, results }`. No tiene `totalPages`, por lo que tendrán que calcularlo: `Math.ceil(count / 50)` (ej: Devuelve 50 por página).
 3. <b>UI:</b> Agregar los botones "Anterior" y "Siguiente", deshabilitándolos si `next` o `previous` son nulos
+
+---
+
+### Requerimientos Decima Parte (03/03)
+
+1. Instalar D3 en su proyecto.
+2. Crear `MonsterStatsChart.vue`
+3. En el `script setup`, crear un arreglo est´tatico de habilidades: `[{ stat: 'Fuerza', value: 18 }, { stat: 'Destreza', value: 14 }, { stat: 'Inteligencia', value: 8 }]`
+4. Implementar `onMounted` y las escalas `scaleBand` (x) y `scaleLinear` (Y)
+5. <b>Renderizado:</b> Dibujar el SVG y pintar las barras con su color temático. Incorporar el gráfico en la pestaña de `MonsterStats.vue` de su vista de detalle.
