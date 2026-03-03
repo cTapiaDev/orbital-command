@@ -21,7 +21,7 @@ defineProps({
         </div>
 
         <div>
-            <TechChart />
+            <TechChart :rocket="rocket" />
         </div>
     </div>
 </template>

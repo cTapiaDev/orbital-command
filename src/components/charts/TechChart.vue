@@ -1,16 +1,33 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import * as d3 from 'd3'
+
+const props = defineProps({
+    rocket: { type: Object, required: true },
+})
 
 const chartRef = ref(null)
 
-const engineData = [
-    { name: 'Nivel del Mar', thrust: 7607 },
-    { name: 'Espacio', thrust: 9340 },
-    { name: 'Aterrizaje', thrust: 3800 },
-]
+const getChartData = () => {
+    const engines = props.rocket?.engines
+    if (!engines) return []
+
+    return [
+        { name: 'Nivel del Mar', thrust: engines.thrust_sea_level?.kN || 0 },
+        { name: 'Espacio', thrust: engines.thrust_vacuum?.kN || 0 },
+    ]
+}
+
+// const engineData = [
+//     { name: 'Nivel del Mar', thrust: 7607 },
+//     { name: 'Espacio', thrust: 9340 },
+//     { name: 'Aterrizaje', thrust: 3800 },
+// ]
 
 const drawChart = () => {
+    const data = getChartData()
+    if (data.length === 0) return
+
     const width = 600
     const height = 300
     const margin = { top: 20, right: 20, bottom: 40, left: 60 }
@@ -28,13 +45,13 @@ const drawChart = () => {
 
     const xScale = d3
         .scaleBand()
-        .domain(engineData.map((d) => d.name)) // ['Nivel del Mar', ' Espacio', 'Aterrizaje']
+        .domain(data.map((d) => d.name)) // ['Nivel del Mar', ' Espacio', 'Aterrizaje']
         .range([0, innerWidth])
         .padding(0.3) // Este padding de d3 es el espacio entre elementos del gráfico
 
     const yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(engineData, (d) => d.thrust)])
+        .domain([0, d3.max(data, (d) => d.thrust)])
         .range([innerHeight, 0])
 
     // Dibujar Eje X
@@ -44,7 +61,7 @@ const drawChart = () => {
         .call(xAxis)
         .attr('color', '#94a3b8')
         .selectAll('text')
-        .attr('font-size', '12px')
+        .attr('font-size', '8px')
         .attr('font-family', 'Rajdhani')
 
     // Dibujar Eje Y
@@ -53,14 +70,14 @@ const drawChart = () => {
         .call(yAxis)
         .attr('color', '#94a3b8')
         .selectAll('text')
-        .attr('font-size', '12px')
+        .attr('font-size', '8px')
         .attr('font-family', 'Rajdhani')
 
-    g.select('.domain').remove() // Nos permite quitar las líneas del medio
+    // g.select('.domain').remove() // Nos permite quitar las líneas del medio
 
     // Dibujo de Barras
     g.selectAll('.bar')
-        .data(engineData)
+        .data(data)
         .enter()
         .append('rect')
         .attr('class', 'bar')
@@ -69,7 +86,6 @@ const drawChart = () => {
         .attr('y', (d) => yScale(d.thrust))
         .attr('height', (d) => innerHeight - yScale(d.thrust))
         .attr('fill', '#38bdf8')
-        .attr('rx', 4)
         .style('transform', 'fill 0.3s ease')
 
     // Hover a la barra
@@ -83,7 +99,7 @@ const drawChart = () => {
 
     // Etiquetas
     g.selectAll('.label')
-        .data(engineData)
+        .data(data)
         .enter()
         .append('text')
         .attr('class', 'label')
@@ -91,15 +107,23 @@ const drawChart = () => {
         .attr('y', (d) => yScale(d.thrust) - 10)
         .attr('text-anchor', 'middle')
         .attr('fill', '#f8fafc')
-        .attr('font-size', '12px')
+        .attr('font-size', '10px')
         .attr('font-weight', 'bold')
         .attr('font-family', 'Rajdhani')
-        .text((d) => `${d.thrust} k`)
+        .text((d) => `${d.thrust} kN`)
 }
 
 onMounted(() => {
     drawChart()
 })
+
+watch(
+    () => props.rocket,
+    () => {
+        drawChart()
+    },
+    { deep: true },
+)
 </script>
 
 <template>

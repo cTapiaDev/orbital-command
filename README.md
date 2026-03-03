@@ -127,6 +127,6 @@
 
 1. Instalar D3 en su proyecto.
 2. Crear `MonsterStatsChart.vue`
-3. En el `script setup`, crear un arreglo est´tatico de habilidades: `[{ stat: 'Fuerza', value: 18 }, { stat: 'Destreza', value: 14 }, { stat: 'Inteligencia', value: 8 }]`
+3. En el `script setup`, crear un arreglo estatico de habilidades: `[{ stat: 'Fuerza', value: 18 }, { stat: 'Destreza', value: 14 }, { stat: 'Inteligencia', value: 8 }]`
 4. Implementar `onMounted` y las escalas `scaleBand` (x) y `scaleLinear` (Y)
 5. <b>Renderizado:</b> Dibujar el SVG y pintar las barras con su color temático. Incorporar el gráfico en la pestaña de `MonsterStats.vue` de su vista de detalle.
