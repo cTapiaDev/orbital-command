@@ -130,3 +130,12 @@
 3. En el `script setup`, crear un arreglo estatico de habilidades: `[{ stat: 'Fuerza', value: 18 }, { stat: 'Destreza', value: 14 }, { stat: 'Inteligencia', value: 8 }]`
 4. Implementar `onMounted` y las escalas `scaleBand` (x) y `scaleLinear` (Y)
 5. <b>Renderizado:</b> Dibujar el SVG y pintar las barras con su color temático. Incorporar el gráfico en la pestaña de `MonsterStats.vue` de su vista de detalle.
+
+---
+
+### Requerimientos Undécima Parte (04/03)
+
+1. Instalar Pinia en `main.js`
+2. <b>Store:</b> Crear `src/stores/bestiaryStore.js`. Debe tener el array de `monsters`, un booleano `isFetched`, y una acción `fetchMonsters()`
+3. <b>Refactorizar:</b> Cambiar `BestiaryView.vue` para que no llame a `mosterService` directamente, sino al `bestiaryStore`
+4. En el Dashboard de la campaña, mostrar el total de monstruos disponibles leyendo `mosters.length` desde el store global.

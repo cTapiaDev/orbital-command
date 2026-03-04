@@ -1,41 +1,52 @@
 <script setup>
 import { ref, inject, onMounted, onUnmounted, computed } from 'vue'
-// import { useRockets } from '@/composables/useRockets'
 import { spacexService } from '@/services/spacexServices'
 import { useTerminal } from '@/composables/useTerminal'
 import { formatCurrency } from '@/utils/formatters'
+import { useFleetStore } from '@/stores/fleetStore'
+import { storeToRefs } from 'pinia'
 import DashboardWidget from '@/components/ui/DashboardWidget.vue'
 import MissionTerminal from '@/components/ui/MissionTerminal.vue'
 import WidgetSkeleton from '@/components/ui/WidgetSkeleton.vue'
 
-// const { rockets, activeCount, totalCost } = useRockets()
 const { addLog } = useTerminal()
 const user = inject('userContext')
-const isLoading = ref(true)
-const isError = ref(false)
-const rocketsData = ref([])
+const fleetStore = useFleetStore()
+const {
+    rockets: rocketsData,
+    isLoading: isRocketsLoading,
+    activeRocketsCount,
+} = storeToRefs(fleetStore)
+const { fetchRockets } = fleetStore
+const isCompanyLoading = ref(true)
+const companyError = ref(false)
 const companyData = ref(null)
 
-const activeCount = computed(() => rocketsData.value.filter((r) => r.active).length)
 const totalValuation = computed(() => companyData.value?.valuation || 0)
 
 const fetchDashboardData = async () => {
-    isLoading.value = true
-    isError.value = false
+    addLog('Iniciando sincronización de telemetría global...', 'info')
 
     try {
-        const [rocketsReponse, companyResponse] = await Promise.all([
-            spacexService.getAllRockets(),
-            spacexService.getCompanyInfo(),
-        ])
-
-        rocketsData.value = rocketsReponse
-        companyData.value = companyResponse
+        await Promise.all([fetchRockets(), fetchCompanyData()])
+        addLog('Sincronización completa', 'success')
     } catch (error) {
-        isError.value = true
-        addLog(`Falla crítica: ${error}`, 'error')
+        console.error('Fallo en la carga...', error)
+    }
+}
+
+const fetchCompanyData = async () => {
+    isCompanyLoading.value = true
+    companyError.value = false
+
+    try {
+        const response = await spacexService.getCompanyInfo()
+        companyData.value = response
+    } catch (err) {
+        companyError.value = true
+        throw err
     } finally {
-        isLoading.value = false
+        isCompanyLoading.value = false
     }
 }
 
@@ -69,7 +80,7 @@ onUnmounted(() => {
         <p class="text-muted mb-8">Resumen operativo de la flota.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <template v-if="isLoading">
+            <template v-if="isRocketsLoading || isCompanyLoading">
                 <WidgetSkeleton v-for="n in 3" :key="n" />
             </template>
 
@@ -95,7 +106,7 @@ onUnmounted(() => {
                 />
                 <DashboardWidget
                     title="Cohetes Activos"
-                    :value="activeCount"
+                    :value="activeRocketsCount"
                     icon="fire"
                     color="text-emerald-400"
                 />

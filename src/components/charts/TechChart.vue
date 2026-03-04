@@ -45,13 +45,14 @@ const drawChart = () => {
 
     const xScale = d3
         .scaleBand()
-        .domain(data.map((d) => d.name)) // ['Nivel del Mar', ' Espacio', 'Aterrizaje']
+        .domain(data.map((d) => d.name)) // ['Nivel del Mar', ' Espacio']
         .range([0, innerWidth])
-        .padding(0.3) // Este padding de d3 es el espacio entre elementos del gráfico
+        .padding(0.5) // Este padding de d3 es el espacio entre elementos del gráfico
 
+    const maxThrust = d3.max(data, (d) => d.thrust)
     const yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(data, (d) => d.thrust)])
+        .domain([0, maxThrust * 1.15])
         .range([innerHeight, 0])
 
     // Dibujar Eje X
@@ -83,17 +84,21 @@ const drawChart = () => {
         .attr('class', 'bar')
         .attr('x', (d) => xScale(d.name))
         .attr('width', xScale.bandwidth())
+        .attr('fill', '#38bdf8')
+        .attr('y', innerHeight)
+        .attr('height', 0)
+        .transition()
+        .duration(1200)
+        .ease(d3.easeCubicOut)
         .attr('y', (d) => yScale(d.thrust))
         .attr('height', (d) => innerHeight - yScale(d.thrust))
-        .attr('fill', '#38bdf8')
-        .style('transform', 'fill 0.3s ease')
 
     // Hover a la barra
     g.selectAll('.bar')
-        .on('mouseenter', (event, d) => {
+        .on('mouseenter', (event) => {
             d3.select(event.currentTarget).attr('fill', '#0ea5e9')
         })
-        .on('mouseleave', (event, d) => {
+        .on('mouseleave', (event) => {
             d3.select(event.currentTarget).attr('fill', '#38bdf8')
         })
 
@@ -104,13 +109,25 @@ const drawChart = () => {
         .append('text')
         .attr('class', 'label')
         .attr('x', (d) => xScale(d.name) + xScale.bandwidth() / 2)
-        .attr('y', (d) => yScale(d.thrust) - 10)
         .attr('text-anchor', 'middle')
         .attr('fill', '#f8fafc')
         .attr('font-size', '10px')
         .attr('font-weight', 'bold')
         .attr('font-family', 'Rajdhani')
-        .text((d) => `${d.thrust} kN`)
+        .attr('y', innerHeight)
+        .attr('opacity', 0)
+        .transition()
+        .delay(200)
+        .duration(1000)
+        .ease(d3.easeCubicOut)
+        .attr('y', (d) => yScale(d.thrust) - 15)
+        .attr('opacity', 1)
+        .tween('text', function (d) {
+            const i = d3.interpolateRound(0, d.thrust)
+            return function (t) {
+                this.textContent = `${i(t)} kN`
+            }
+        })
 }
 
 onMounted(() => {

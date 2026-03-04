@@ -1,38 +1,15 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { spacexService } from '@/services/spacexServices'
-import { useToast } from '@/composables/useToast'
-// import { rockets as rocketsData } from '@/data/rockets'
+import { onMounted } from 'vue'
+import { useFleetStore } from '@/stores/fleetStore'
+import { storeToRefs } from 'pinia'
 import RocketCard from '@/components/rockets/RocketCard.vue'
 import RocketSkeleton from '@/components/ui/RocketSkeleton.vue'
 
-const { addToast } = useToast()
-
-const rockets = ref([])
-const isLoading = ref(true)
-const isError = ref(false)
-
-const fetchRockets = async () => {
-    isLoading.value = true
-    isError.value = false
-
-    try {
-        const data = await spacexService.getAllRockets()
-        rockets.value = data
-        addToast('Flota sincronizada con éxito', 'success')
-    } catch (error) {
-        isError.value = true
-        console.log(`Error fetch: ${error}`)
-    } finally {
-        isLoading.value = false
-    }
-}
+const fleetStore = useFleetStore()
+const { rockets, isLoading, isError } = storeToRefs(fleetStore)
+const { fetchRockets } = fleetStore
 
 onMounted(() => {
-    // setTimeout(() => {
-    //     rockets.value = rocketsData
-    //     isLoading.value = false
-    // }, 1500)
     fetchRockets()
 })
 </script>
