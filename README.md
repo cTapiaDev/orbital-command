@@ -139,3 +139,17 @@
 2. <b>Store:</b> Crear `src/stores/bestiaryStore.js`. Debe tener el array de `monsters`, un booleano `isFetched`, y una acción `fetchMonsters()`
 3. <b>Refactorizar:</b> Cambiar `BestiaryView.vue` para que no llame a `mosterService` directamente, sino al `bestiaryStore`
 4. En el Dashboard de la campaña, mostrar el total de monstruos disponibles leyendo `mosters.length` desde el store global.
+
+---
+
+### Requerimientos Doceava Parte (05/03)
+
+1. Crear `src/stores/spellStore.js`
+2. Configurar la acción `fetchSpells()` apuntando a `api.get(/spells)`.
+3. Crear un `computed` llamada `highLevelSpellsCount` que use `.filter()` para devolver la cantidad de hechizos que sean de nivel 5 o superior
+4. En el dashboard de la campaña, consumir `bestiaryStore` y `spellStore` en paralelo usando `Promise.all`. Motrar en un widget el total de monstruos y en otro widget el resultado de `highLevelSpellsCount`.
+5. Asegurarse de instalar y inyectar `pini-plugin-persistedstate`
+6. Crear `src/stores/characterStore.js`. Crear el array `preparedSpells` (Id de hechizos) y configurar `{ persist: true }`
+7. Crear la acción `togglePreparedSpell(spellId)` que añada o quite el ID del array.
+8. En su tarjeta de hechizo (`SpellCard.vue`), agregar un botón con un icono de un libro o varita mágica. Al hacer clic, debe llamar a la acción. Si está "preparado", el icono debe brillar con un color mágico (ej: púrpura o verde esmeralda)
+9. <b>Verificación:</b> Refrescar la página y asegurar que los hechizos sigan marcados.

@@ -12,6 +12,12 @@ export const useFleetStore = defineStore('fleet', () => {
         return rockets.value.filter((r) => r.active).length
     })
 
+    const totalFleetCost = computed(() => {
+        return rockets.value.reduce((total, currentRocket) => {
+            return total + (currentRocket.cost_per_launch || 0)
+        }, 0)
+    })
+
     const fetchRockets = async () => {
         // Patrón Singleton
         if (isFetched.value) {
@@ -39,6 +45,7 @@ export const useFleetStore = defineStore('fleet', () => {
         isLoading,
         isError,
         activeRocketsCount,
+        totalFleetCost,
         fetchRockets,
     }
 })

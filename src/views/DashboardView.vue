@@ -1,9 +1,10 @@
 <script setup>
-import { ref, inject, onMounted, onUnmounted, computed } from 'vue'
-import { spacexService } from '@/services/spacexServices'
+import { inject, onMounted, onUnmounted } from 'vue'
 import { useTerminal } from '@/composables/useTerminal'
 import { formatCurrency } from '@/utils/formatters'
 import { useFleetStore } from '@/stores/fleetStore'
+import { useCompanyStore } from '@/stores/companyStore'
+import { useUserStore } from '@/stores/userStore'
 import { storeToRefs } from 'pinia'
 import DashboardWidget from '@/components/ui/DashboardWidget.vue'
 import MissionTerminal from '@/components/ui/MissionTerminal.vue'
@@ -11,18 +12,29 @@ import WidgetSkeleton from '@/components/ui/WidgetSkeleton.vue'
 
 const { addLog } = useTerminal()
 const user = inject('userContext')
+
 const fleetStore = useFleetStore()
 const {
     rockets: rocketsData,
     isLoading: isRocketsLoading,
+    isError: rocketError,
     activeRocketsCount,
+    totalFleetCost,
 } = storeToRefs(fleetStore)
-const { fetchRockets } = fleetStore
-const isCompanyLoading = ref(true)
-const companyError = ref(false)
-const companyData = ref(null)
 
-const totalValuation = computed(() => companyData.value?.valuation || 0)
+const companyStore = useCompanyStore()
+const {
+    companyInfo: companyData,
+    isLoading: isCompanyLoading,
+    isError: companyError,
+    // totalValuation,
+} = storeToRefs(companyStore)
+
+const userStore = useUserStore()
+const { favoritesCount } = storeToRefs(userStore)
+
+const { fetchRockets } = fleetStore
+const { fetchCompanyData } = companyStore
 
 const fetchDashboardData = async () => {
     addLog('Iniciando sincronización de telemetría global...', 'info')
@@ -32,21 +44,6 @@ const fetchDashboardData = async () => {
         addLog('Sincronización completa', 'success')
     } catch (error) {
         console.error('Fallo en la carga...', error)
-    }
-}
-
-const fetchCompanyData = async () => {
-    isCompanyLoading.value = true
-    companyError.value = false
-
-    try {
-        const response = await spacexService.getCompanyInfo()
-        companyData.value = response
-    } catch (err) {
-        companyError.value = true
-        throw err
-    } finally {
-        isCompanyLoading.value = false
     }
 }
 
@@ -79,12 +76,12 @@ onUnmounted(() => {
         </h2>
         <p class="text-muted mb-8">Resumen operativo de la flota.</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <template v-if="isRocketsLoading || isCompanyLoading">
                 <WidgetSkeleton v-for="n in 3" :key="n" />
             </template>
 
-            <template v-else-if="isError">
+            <template v-else-if="rocketError || companyError">
                 <div
                     class="bg-rose-500/10 border border-rose-500/20 p-6 rounded-2xl text-center flex flex-col items-center justify-center"
                 >
@@ -100,6 +97,12 @@ onUnmounted(() => {
 
             <template v-else>
                 <DashboardWidget
+                    title="Marcados como Favoritos"
+                    :value="favoritesCount"
+                    icon="star"
+                    color="text-yellow-400"
+                />
+                <DashboardWidget
                     title="Unidades Totales"
                     :value="rocketsData.length"
                     icon="rocket"
@@ -110,11 +113,17 @@ onUnmounted(() => {
                     icon="fire"
                     color="text-emerald-400"
                 />
-                <DashboardWidget
+                <!-- <DashboardWidget
                     title="Valor de Flota"
                     :value="formatCurrency(totalValuation)"
                     icon="database"
                     color="text-yellow-400"
+                /> -->
+                <DashboardWidget
+                    title="Valor por Lanzamiento (Total)"
+                    :value="formatCurrency(totalFleetCost)"
+                    icon="database"
+                    color="text-purple-400"
                 />
             </template>
         </div>
