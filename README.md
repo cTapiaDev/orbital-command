@@ -153,3 +153,13 @@
 7. Crear la acción `togglePreparedSpell(spellId)` que añada o quite el ID del array.
 8. En su tarjeta de hechizo (`SpellCard.vue`), agregar un botón con un icono de un libro o varita mágica. Al hacer clic, debe llamar a la acción. Si está "preparado", el icono debe brillar con un color mágico (ej: púrpura o verde esmeralda)
 9. <b>Verificación:</b> Refrescar la página y asegurar que los hechizos sigan marcados.
+
+---
+
+### Requerimientos Treceava Parte (06/03)
+
+1. <b>Configuración:</b> Instalar Vitest y Vue Test Utils. Configurar el archivo `vite.config.js`
+2. <b>Test 1:</b> Crear un test para `StatBadge.vue`. Comprobar que si se le pasa el prop `value: 18`, renderiza el texto "18".
+3. <b>Test 2:</b> Crear un test para `MonsterCard.vue`. Comprobar que al hacer clic en el botón "Ver Bestia" (o el texto que le agregaran), se emite el evento correspondiente enviando el objeto del monstruo. Utilizar el mock de dependencias (`global.stubs`) si el componente usa iconos internos.
+4. <b>Test 3:</b> Si crearon una función utilitaria de JS para calcular el "Modificador de característica" (ej. Fuerza 18 = +4), crear una prueba en `/utils/__tests__/` que valide que enviando 18 devuelva 4, y enviando 8 devuelva -1.
+5. <b>Interceptor:</b> Crear `src/stores/__tests__/bestiaryStore.spec.js` y utilizar `vi.mock()` para interceptar su archivo `monsterService.js`
