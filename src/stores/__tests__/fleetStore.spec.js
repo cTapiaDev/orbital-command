@@ -29,7 +29,7 @@ describe('Fleet Store', () => {
         expect(store.activeRocketsCount).toBe(0)
     })
 
-    it('actualiza el estado rockets y los getters cuando la petción es exitosa', async () => {
+    it('actualiza el estado rockets y los getters cuando la petición es exitosa', async () => {
         const store = useFleetStore()
 
         spacexService.getAllRockets.mockResolvedValue(mockRocketsData)
@@ -41,5 +41,18 @@ describe('Fleet Store', () => {
         expect(store.isLoading).toBe(false)
         expect(store.isError).toBe(false)
         expect(store.activeRocketsCount).toBe(1)
+    })
+
+    it('cambia el estado isError a true si la petición falla', async () => {
+        const store = useFleetStore()
+
+        spacexService.getAllRockets.mockRejectedValue(new Error('Network Error'))
+
+        await store.fetchRockets()
+
+        expect(spacexService.getAllRockets).toHaveBeenCalledTimes(1)
+        expect(store.rockets).toEqual([])
+        expect(store.isError).toBe(true)
+        expect(store.isLoading).toBe(false)
     })
 })

@@ -1,0 +1,12 @@
+[
+    {
+        "id": "1e4213sadasdsa343324c",
+        "name": "Cypress Rocket 1",
+        "description": "Cohete de prueba inyectado por Cypress",
+        "height": { "meters": 70 },
+        "mass": { "kg": 549054 },
+        "cost_per_launch": 67000000,
+        "active": true,
+        "flickr_images": ["https://farm5.staticflickr.com/4599/38583829295_581f34dd84_b.jpg"]
+    }
+]
