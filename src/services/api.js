@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useToast } from '@/composables/useToast'
 import { useTerminal } from '@/composables/useTerminal'
+import { useAuthStore } from '@/stores/authStore'
 
 const { addToast } = useToast()
 const { addLog } = useTerminal()
@@ -43,6 +44,10 @@ api.interceptors.response.use(
             if (status === 404) {
                 addLog('Error 404: Recurso no encontrado en el servidor.', 'error')
                 addToast('Error 404: Recurso no encontrado en el servidor.', 'error')
+            } else if (status === 401) {
+                addToast('Sesión expirada. Ingresa nuevamente', 'error')
+                const authStore = useAuthStore()
+                authStore.logout()
             } else if (status >= 500) {
                 addLog('Error 500: Falla crítica en los servidores de SpaceX.', 'error')
                 addToast('Error 500: Falla crítica en los servidores de SpaceX.', 'error')

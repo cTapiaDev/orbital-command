@@ -41,6 +41,7 @@ import {
     faChartBar,
     faMicrochip,
     faStar,
+    faTerminal,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -73,6 +74,7 @@ library.add(
     faChartBar,
     faMicrochip,
     faStar,
+    faTerminal,
 )
 
 const app = createApp(App)

@@ -1,8 +1,13 @@
 <script setup>
-import { provide, ref } from 'vue'
+import { provide, ref, onMounted, onUnmounted } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { useToast } from '@/composables/useToast'
 import SystemClock from '@/components/ui/SystemClock.vue'
+import { socketService } from '@/services/socketService'
 
+const authStore = useAuthStore()
+const { addToast } = useToast()
 const appVersion = ref(import.meta.env.VITE_SYSTEM_VERSION)
 const appTitle = ref(import.meta.env.VITE_APP_TITLE)
 
@@ -14,6 +19,20 @@ const currentUser = ref({
 })
 
 provide('userContext', currentUser)
+
+const handleCriticalAnomaly = (data) => {
+    addToast(`¡ALERTA!: ${data.message} (${data.code})`, 'error')
+}
+
+onMounted(() => {
+    socketService.connect()
+    socketService.subscribe('critical_anomaly', handleCriticalAnomaly)
+})
+
+onUnmounted(() => {
+    socketService.unsubscribe('critical_anomaly')
+    socketService.disconnect()
+})
 </script>
 
 <template>
@@ -71,16 +90,31 @@ provide('userContext', currentUser)
             </nav>
 
             <div class="p-6 border-t border-white/5 bg-black/20">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-10 h-10 rounded-full bg-brand/20 flex items-center justify-center border border-brand/50"
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-brand/20 flex items-center justify-center border border-brand/50"
+                        >
+                            <font-awesome-icon
+                                :icon="authStore.user?.avatar || 'user-astronaut'"
+                                class="text-brand"
+                            />
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">
+                                {{ authStore.user?.name || 'Comandante' }}
+                            </p>
+                            <p class="text-2xs text-muted uppercase">
+                                {{ authStore.user?.rank || 'Acceso Nivel -' }}
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        @click="authStore.logout()"
+                        class="text-xs text-rose-400 hover:text-rose-500 transition-colors cursor-pointer uppercase font-bold tracking-widest"
                     >
-                        <font-awesome-icon icon="user-astronaut" class="text-brand" />
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-white">Cmdr. Shepard</p>
-                        <p class="text-2xs text-muted uppercase">Acceso Nivel 5</p>
-                    </div>
+                        Salir
+                    </button>
                 </div>
             </div>
         </aside>
