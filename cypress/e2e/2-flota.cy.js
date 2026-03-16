@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 describe('Vista de Flota - Manejo de Red', () => {
     beforeEach(() => {
         cy.clearLocalStorage()
