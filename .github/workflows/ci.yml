@@ -1,0 +1,31 @@
+name: Orbital Command CI
+
+on:
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
+
+jobs:
+    build-and-lint:
+        name: Compilación y Adutoría de Código
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Descargar el repositorio
+              uses: actions/checkout@v4
+
+            - name: Configurar Node.js 20
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Instalar Dependencias
+              run: npm ci
+
+            - name: Auditoría de Sintaxis (ESLint)
+              run: npm run lint
+
+            - name: Prueba de Compilación (Vite Build)
+              run: npm run build
