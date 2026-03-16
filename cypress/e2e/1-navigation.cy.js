@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 describe('Navegación Principal de Orbital Command', () => {
     beforeEach(() => {
         cy.visit('/')
