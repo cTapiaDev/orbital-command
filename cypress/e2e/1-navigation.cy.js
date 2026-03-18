@@ -1,6 +1,15 @@
 /* eslint-disable no-undef */
 describe('Navegación Principal de Orbital Command', () => {
     beforeEach(() => {
+        const authState = {
+            token: 'token-simulado-cypress',
+            user: { name: 'Cmdr. Shepard', avatar: 'user-astronaut' },
+        }
+
+        cy.window().then((win) => {
+            win.localStorage.setItem('auth', JSON.stringify(authState))
+        })
+
         cy.visit('/')
     })
 

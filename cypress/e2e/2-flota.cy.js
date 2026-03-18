@@ -2,6 +2,15 @@
 describe('Vista de Flota - Manejo de Red', () => {
     beforeEach(() => {
         cy.clearLocalStorage()
+        const authState = {
+            token: 'token-simulado-cypress',
+            user: { name: 'Cmdr. Shepard', avatar: 'user-astronaut' },
+        }
+
+        cy.window().then((win) => {
+            win.localStorage.setItem('auth', JSON.stringify(authState))
+        })
+
         cy.intercept({ method: 'GET', url: '**/v4/rockets' }, { fixture: 'rockets.json' }).as(
             'getRockets',
         )
