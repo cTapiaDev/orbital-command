@@ -29,3 +29,28 @@ jobs:
 
             - name: Prueba de Compilación (Vite Build)
               run: npm run build
+
+    testing:
+        name: Pruebas Unitarias y E2E
+        needs: build-and-lint
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Instalar dependencias
+              run: npm ci
+
+            - name: Pruebas Unitarias
+              run: npm run test:unit
+
+            - name: Pruebas End-to-End
+              uses: cypress-io/github-action@v7
+              with:
+                  build: npm run build
+                  start: npm run preview
+                  wait-on: 'http://localhost:4173'
