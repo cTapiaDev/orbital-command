@@ -163,3 +163,12 @@
 3. <b>Test 2:</b> Crear un test para `MonsterCard.vue`. Comprobar que al hacer clic en el botón "Ver Bestia" (o el texto que le agregaran), se emite el evento correspondiente enviando el objeto del monstruo. Utilizar el mock de dependencias (`global.stubs`) si el componente usa iconos internos.
 4. <b>Test 3:</b> Si crearon una función utilitaria de JS para calcular el "Modificador de característica" (ej. Fuerza 18 = +4), crear una prueba en `/utils/__tests__/` que valide que enviando 18 devuelva 4, y enviando 8 devuelva -1.
 5. <b>Interceptor:</b> Crear `src/stores/__tests__/bestiaryStore.spec.js` y utilizar `vi.mock()` para interceptar su archivo `monsterService.js`
+
+---
+
+### Tarea Opcional
+
+1. Conectar su repositorio a Vercel.
+2. Asegurar que las variables de entorno de sus APIs públicas estén configuradas.
+3. Incluir el archivo `vercel.json` para mayor protección en las rutas de Vue.
+4. Generar un reporte de Lighthouse de su URL de producción y entregarlo junto con el enlace al proyecto.
