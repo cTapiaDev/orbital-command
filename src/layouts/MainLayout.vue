@@ -36,7 +36,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="flex h-screen w-full bg-orange-500">
+    <div class="flex h-screen w-full bg-space-black">
         <aside class="w-64 flex flex-col border-r border-white/5 bg-space-panel">
             <div class="h-20 flex items-center px-6 border-b border-white/5">
                 <font-awesome-icon
