@@ -52,5 +52,6 @@ jobs:
               uses: cypress-io/github-action@v7
               with:
                   build: npm run build
-                  start: npm run preview
-                  wait-on: 'http://localhost:5173'
+                  start: npm run preview -- --host 127.0.0.1
+                  wait-on: 'http://127.0.0.1:4173'
+                  config: baseUrl=http://127.0.0.1:4173
